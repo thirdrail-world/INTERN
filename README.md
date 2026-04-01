@@ -177,7 +177,7 @@ intern run --live --auto-refill --min-backlog 5
 
 ## Origin Story
 
-Intern was extracted from [KAI](https://thirdrail.world), a sovereign personal AI system running on an NVIDIA DGX Spark. It started as Intern — an internal tool to automate development tasks on KAI's codebase. After executing 64+ tickets autonomously and writing 120+ tests, we extracted it as a standalone tool.
+Intern was extracted from [KAI](https://thirdrail.world), a sovereign personal AI system running on an NVIDIA DGX Spark. It started as an internal tool called NemoClaw, built to automate development tasks on KAI's codebase. After executing 64+ tickets autonomously and writing 120+ tests with zero human intervention, we extracted and rebranded it as Intern.
 
 The Claude Code source leak on March 31, 2026 revealed that Anthropic built the same architecture (KAIROS, autoDream, coordinator mode) — but locked behind their cloud. Intern is the sovereign alternative.
 
