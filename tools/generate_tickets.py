@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""NemoClaw Ticket Generator — scans codebase and seeds backlog automatically.
+"""Intern Ticket Generator — scans codebase and seeds backlog automatically.
 
 Generates tickets for:
   - Python modules without test files
   - Source directories without documentation
   - Scripts without error handling (set -e)
 
-Respects NemoClaw ticket format: single file, writable dir, proper verify block.
+Respects Intern ticket format: single file, writable dir, proper verify block.
 Skips tickets that already exist in backlog/, active/, escalated/, or done/.
 
 Usage:
@@ -32,7 +32,7 @@ TESTS = REPO_ROOT / "tests"
 DOCS = REPO_ROOT / "docs"
 SCRIPTS = REPO_ROOT / "scripts"
 
-# Modules to skip (too complex for NemoClaw, or not worth testing)
+# Modules to skip (too complex for Intern, or not worth testing)
 SKIP_MODULES = {
     "bot.py",           # Discord bot wiring — needs live Discord
     "agent_server.py",  # LiveKit agent — needs live services
@@ -182,7 +182,7 @@ Keep it factual and under 150 lines.
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate NemoClaw tickets from codebase analysis")
+    parser = argparse.ArgumentParser(description="Generate Intern tickets from codebase analysis")
     parser.add_argument("--dry-run", action="store_true", help="Preview without creating files")
     parser.add_argument("--limit", type=int, default=20, help="Max tickets to generate (default: 20)")
     parser.add_argument("--type", choices=["test", "doc", "all"], default="all", help="Ticket type to generate")

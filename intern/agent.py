@@ -493,23 +493,23 @@ def main() -> int:
     )
     parser.add_argument(
         "--profile",
-        default=os.getenv("NEMOCLAW_PROFILE", "devstral"),
+        default=os.getenv("INTERN_PROFILE", "devstral"),
         choices=["nemotron", "qwen", "devstral"],
         help="Planner backend profile (default: devstral)",
     )
     parser.add_argument(
         "--base-url",
-        default=os.getenv("NEMOCLAW_LLM_URL", ""),
+        default=os.getenv("INTERN_LLM_URL", ""),
         help="LLM base URL (overrides profile default)",
     )
     parser.add_argument(
         "--model",
-        default=os.getenv("NEMOCLAW_LLM_MODEL", ""),
+        default=os.getenv("INTERN_LLM_MODEL", ""),
         help="LLM model name (overrides profile default)",
     )
     parser.add_argument(
         "--api-key",
-        default=os.getenv("NEMOCLAW_LLM_API_KEY", os.getenv("NVIDIA_API_KEY", "")),
+        default=os.getenv("INTERN_LLM_API_KEY", os.getenv("NVIDIA_API_KEY", "")),
         help="LLM API key (default: NVIDIA_API_KEY env var)",
     )
     parser.add_argument(
@@ -533,7 +533,7 @@ def main() -> int:
     if profile["needs_api_key"] and not api_key:
         parser.error(
             f"Profile '{args.profile}' requires an API key. "
-            f"Set NVIDIA_API_KEY or NEMOCLAW_LLM_API_KEY, or pass --api-key."
+            f"Set NVIDIA_API_KEY or INTERN_LLM_API_KEY, or pass --api-key."
         )
 
     success = asyncio.run(execute_ticket(

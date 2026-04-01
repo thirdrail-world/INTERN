@@ -13,7 +13,7 @@ if [ "$current" -lt "$MIN_TICKETS" ]; then
     echo "$(date): Backlog low ($current < $MIN_TICKETS), generating $REFILL_AMOUNT tickets..."
     .venv/bin/python3 tools/generate_tickets.py --limit "$REFILL_AMOUNT"
     
-    # Commit so NemoClaw's preflight doesn't fail
+    # Commit so Intern's preflight doesn't fail
     git add tickets/backlog/
     git diff --cached --quiet || git commit -m "chore(auto): refill backlog with $(ls tickets/backlog/*.md 2>/dev/null | wc -l) tickets"
     

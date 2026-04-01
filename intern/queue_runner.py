@@ -1,7 +1,7 @@
 """Intern Queue Runner — Phase 3A+3B (Dry-Run + Live Execution).
 
 Scans tickets/backlog/, classifies each as SAFE or GATED per
-docs/NEMOCLAW_QUEUE_POLICY.md, and runs dry-runs or live edits
+docs/INTERN_QUEUE_POLICY.md, and runs dry-runs or live edits
 for SAFE tickets.
 
 Default mode is dry-run. Must pass --live explicitly for live execution.
@@ -11,7 +11,7 @@ Usage:
     python -m src.intern.queue_runner --once --live
     python -m src.intern.queue_runner --once --live --verbose
 
-NEMOCLAW-PHASE3A-001, NEMOCLAW-PHASE3B-001
+INTERN-PHASE3A-001, INTERN-PHASE3B-001
 """
 
 from __future__ import annotations
@@ -68,7 +68,7 @@ def clear_skip(ticket_id):
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # ---------------------------------------------------------------------------
-# Constants from NEMOCLAW_QUEUE_POLICY.md
+# Constants from INTERN_QUEUE_POLICY.md
 # ---------------------------------------------------------------------------
 
 WRITABLE_DIRS = ("tools/", "tickets/", "tests/", "docs/", "configs/", "scripts/", "data/", "src/", "config/")
@@ -170,7 +170,7 @@ def release_lock(fd: int) -> None:
 def classify_ticket(ticket: dict) -> tuple[str, str]:
     """Return (queue, reason) — queue is 'safe' or 'gated'.
 
-    Pure function. No LLM. Implements NEMOCLAW_QUEUE_POLICY.md.
+    Pure function. No LLM. Implements INTERN_QUEUE_POLICY.md.
     """
     files = ticket.get("allowed_files", [])
     body_lower = ticket.get("body", "").lower()
@@ -274,7 +274,7 @@ def report(category: str, identifier: str, action: str, summary: str = "") -> No
 def resolve_planner_profile() -> dict:
     """Resolve LLM planner profile from env (same as Discord dispatch)."""
     from intern.planner import PLANNER_PROFILES
-    profile_name = os.environ.get("NEMOCLAW_PROFILE", "devstral")
+    profile_name = os.environ.get("INTERN_PROFILE", "devstral")
     profile = PLANNER_PROFILES.get(profile_name, {})
     base_url = profile.get("base_url", "")
     model = profile.get("model", "")
@@ -419,7 +419,7 @@ async def dry_run_ticket(ticket: dict) -> dict:
 async def live_run_ticket(ticket: dict) -> dict:
     """Execute a ticket with live edits + atomic commit.
 
-    Follows NEMOCLAW_QUEUE_POLICY.md execution protocol:
+    Follows INTERN_QUEUE_POLICY.md execution protocol:
     ANNOUNCE → LIVE-RUN → VERIFY → COMMIT → HEALTH → REPORT
     Rolls back to pre-edit SHA on any failure.
     """
