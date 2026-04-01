@@ -7,6 +7,10 @@
   <a href="#quickstart">Quickstart</a> · <a href="#how-it-works">How It Works</a> · <a href="#why-intern">Why Intern</a> · <a href="#configuration">Configuration</a>
 </p>
 
+<p align="center">
+  <img src="assets/demo.gif" alt="Intern demo" width="720">
+</p>
+
 ---
 
 Intern scans a ticket backlog, plans edits using a local LLM, executes them, runs verification, and commits. Failed tickets escalate to your preferred handler. The backlog refills automatically by scanning your codebase.
