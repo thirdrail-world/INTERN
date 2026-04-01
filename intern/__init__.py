@@ -1,1 +1,1 @@
-# Intern — local autonomous agent for KAI development.
+__version__ = "0.1.0"
