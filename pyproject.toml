@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intern"
+version = "0.1.0"
+description = "Autonomous dev agent that executes tickets from a backlog using local LLMs"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [{name = "Third Rail", email = "kamil@thirdrail.world"}]
+keywords = ["ai", "automation", "dev-agent", "llm", "autonomous", "coding"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = ["httpx>=0.25.0", "pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-asyncio>=0.21"]
+
+[project.scripts]
+intern = "intern.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/thirdrail/intern"
+Repository = "https://github.com/thirdrail/intern"
+
+[tool.setuptools.packages.find]
+include = ["intern*"]

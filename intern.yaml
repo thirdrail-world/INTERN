@@ -1,0 +1,29 @@
+# Intern Configuration
+llm_profiles:
+  default:
+    base_url: "http://localhost:8200/v1"
+    model: "Qwen/Qwen3-8B-AWQ"
+    max_tokens: 8192
+    temperature: 0.2
+
+directories:
+  backlog: "tickets/backlog"
+  done: "tickets/done"
+  escalated: "tickets/escalated"
+  artifacts: "artifacts/intern"
+
+writable_dirs:
+  - "src/"
+  - "tests/"
+  - "docs/"
+  - "scripts/"
+  - "config/"
+
+protected_files: []
+
+escalation:
+  handler: "file"
+  max_retries: 5
+
+scanner:
+  interval_seconds: 60
