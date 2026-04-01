@@ -26,13 +26,15 @@ The difference: **theirs requires their cloud.** Intern runs on your metal.
 | Autonomous daemon | Feature-flagged | Production since March 2026 |
 | Escalation pipeline | No | Yes (webhook, Slack, Claude Code, custom) |
 | Auto-refill backlog | No | Yes (codebase scanning) |
-| Open source | Accidentally | Intentionally (MIT) |
+| Open source | Accidentally (npm leak) | Intentionally (MIT) |
 | Your code leaves your machine | Yes | Never |
 
 ## Quickstart
 
 ```bash
-pip install intern-dev
+git clone https://github.com/thirdrail-world/INTERN.git
+cd INTERN
+pip install -e .
 
 # Point at your LLM
 export INTERN_LLM_URL="http://localhost:11434/v1"  # Ollama
@@ -60,6 +62,16 @@ EOF
 # Run
 intern run --once    # Process backlog once
 intern run --live    # Daemon mode (scan every 60s)
+```
+
+> **PyPI package coming soon.** Star the repo to get notified.
+
+#### What just happened?
+
+```bash
+git log --oneline -5        # See Intern's commits
+cat tickets/done/*.md       # Completed tickets
+cat tickets/escalated/*.md  # Tickets that needed help
 ```
 
 ## How It Works
@@ -165,6 +177,23 @@ intern generate-tickets --scan-dir src/ --type tests
 intern run --live --auto-refill --min-backlog 5
 ```
 
+## Escalation Pipeline
+
+Not every ticket can be solved by a local LLM. Intern handles this with a two-tier system:
+
+```
+Ticket claimed → Plan → Execute → Verify
+                                     ↓
+                              ✅ Pass → commit
+                              ❌ Fail → retry (up to 5x)
+                                          ↓
+                                   Still failing → escalate
+                                          ↓
+                              webhook / Slack / Claude Code / custom handler
+```
+
+Escalation is pluggable. Point it at a Discord webhook, a Slack channel, or a more capable agent. In production, Intern escalates to Claude Code via a Discord bridge — simple tickets stay local, complex ones get routed to a stronger model automatically.
+
 ## Safety
 
 - **Clean git required** — won't run on dirty repos
@@ -180,6 +209,12 @@ intern run --live --auto-refill --min-backlog 5
 Intern was extracted from [KAI](https://thirdrail.world), a sovereign personal AI system running on an NVIDIA DGX Spark. It started as an internal tool called NemoClaw, built to automate development tasks on KAI's codebase. After executing 64+ tickets autonomously and writing 120+ tests with zero human intervention, we extracted and rebranded it as Intern.
 
 The Claude Code source leak on March 31, 2026 revealed that Anthropic built the same architecture (KAIROS, autoDream, coordinator mode) — but locked behind their cloud. Intern is the sovereign alternative.
+
+## Contributing
+
+Open an issue or PR. We're building in public.
+
+If you run Intern on your own hardware and want to share results, open a discussion — we want to see what models and configurations work best across different setups.
 
 ## License
 
